@@ -2,7 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
-
+                                // This program is meant to change the way a set of words is printed out, changing the order and which characters appear
 void left(char word[]);
 void right(char word[]);
 void inc(char word[]);
