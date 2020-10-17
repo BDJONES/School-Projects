@@ -2,7 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
-
+                                // This program reads a random assortment of words and symbols and makes a message about an appointment from the info it gathers
 bool Name(char str[]);
 bool Building(char str[]);
 bool Date(char str[]);
