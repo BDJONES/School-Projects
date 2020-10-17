@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+                   
 int main() {
 int num20, num10, num5, num1;
 // User prompted to list the amounts of dollar biils
