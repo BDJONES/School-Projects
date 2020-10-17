@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-
+                                // This program ask the user a series of questions, and determines whether they should take a break or study for an upcoming assignment
 int main() {
-    
+                                
     char userInput[50];
 
     printf("What are you worried about (test or project)?\n");
