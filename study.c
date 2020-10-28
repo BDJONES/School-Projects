@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-                                // This program ask the user a series of questions, and determines whether they should take a break or study for an upcoming assignment
+// This program ask the user a series of questions, and determines whether they should take a break or study for an upcoming assignment
+// I used the strcmp function to see if a user input matched the preset response
+// If the user input didn't match the preset responses, then the program terminates
 int main() {
                                 
     char userInput[50];
