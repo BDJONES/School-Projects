@@ -3,10 +3,10 @@
 #include <string.h>
 #include <stdbool.h>
                                 // This program reads a random assortment of words and symbols and makes a message about an appointment from the info it gathers
-bool Name(char str[]);
-bool Building(char str[]);
-bool Date(char str[]);
-bool Time(char str[]);
+bool Name(char str[]);          // This function checks to see if the first letter is uppercase, that there are no special characters, and every chaacter following the first is a lowercase letter 
+bool Building(char str[]);      // This function checks to see if a string is 6 characters or longer, as well as, if there are 3-4 uppercase letters at the beginning and and the rest of the characters after that are numbers 
+bool Date(char str[]);          // This function checks to see if a string is 5 characters long, and if the 3rd character is a '-', as well as, if the other characters are numbers 
+bool Time(char str[]);          // This function checks to see if a string is 3-4 characters long, and if the string contains only numbers and the characters 'am' or 'pm' which denote the time of day
 
 int main() {
     char str[100] = " ";
