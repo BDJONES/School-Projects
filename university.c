@@ -1,9 +1,202 @@
+// This file university.c includes both a header and interface file as well as the all the functions made in the orginal university.c file.
+// I will show where every file is by commenting on the line before and after the file would begin, in case you would want run the program itself.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
+/*this include statemnt is here to show that I did break the file into 3 parts(interface2.c, university.c, university.h) originally. If you wanted to run this file on your
+computer you would have to make 3 different files broken up as I have denoted below*/
+
 #include "university.h"
+
+//
+// university.h
+//
+
+#ifndef _UNIVERSITY_H_
+#define _UNIVERSITY_H_
+
+typedef struct _dept {
+	char *name;
+	int enrollment;
+	struct _dept *next;
+} Dept;
+
+typedef struct _college {
+	char *name;
+	Dept *headDeptList;
+	struct _college *next;
+} College;
+
+College* addCollege(College *headCollegeList, char collegeName[]);
+void addDept(College *headCollegeList, char collegeName[], char deptName[], int enrollment);
+int count(College *headCollegeList);
+int enrollment(College *headCollegeList, char collegeName[]);
+void printCollege(College *headCollegeList, char collegeName[]);
+void print(College *headCollegeList);
+College *addCollegeOrdered(College *headCollegeList, char collegeName[]);
+void addDeptOrdered(College *headCollegeList, char collegeName[], char deptName[], int enrollment);
+void removeDept(College *headCollegeList, char collegeName[], char deptName[]);
+College *removeCollege(College *headCollegeList, char collegeName[]);
+
+#endif
+
+//
+// interface.c
+//
+
+typedef
+enum {
+   ADD_COLLEGE,
+   ADD_DEPT,
+   COUNT,
+   ENROLLMENT,
+   PRINT_COLLEGE,
+   PRINT,
+   ADD_COLLEGE_ORDERED,
+   ADD_DEPT_ORDERED,
+   REMOVE_DEPT,
+   REMOVE_COLLEGE,
+   HELP,
+   QUIT,
+   INVALID
+}
+Option;
+
+char *actions[12] = {
+   "addCollege",
+   "addDept",
+   "count",
+   "enrollment",
+   "printCollege",
+   "print",
+   "addCollegeOrdered",
+   "addDeptOrdered",
+   "removeDept",
+   "removeCollege",
+   "help",
+   "quit"
+};
+
+int getActionID(char action[])
+{
+	int i;
+	for (i=0; i<12; i++) {
+		if (strcmp(action, actions[i])==0) return i;
+	}
+	return i; // 12 for invalid action
+}
+
+void printHelp(void) {
+   printf("\nThe valid commands:\n\n");
+   printf("\taddCollege name\n");
+   printf("\t*** Add a college (add-at-front)\n");
+   printf("\taddDept collegename deptname enrollment\n");
+   printf("\t*** Add a dept to an existing college (add-at-end)\n");
+   printf("\tcount\n");
+   printf("\t*** Print the number of colleges\n");
+   printf("\enrollment collegename\n");
+   printf("\t*** Print the total number of students enrolled in a college\n");
+   printf("\tprintCollege name\n");
+   printf("\t*** Print a college and its depts\n");
+   printf("\tprint\n");
+   printf("\t*** Print all colleges\n");
+   printf("\taddCollegeOrdered name\n");
+   printf("\t*** Add a college (in alphabetical order)\n");
+   printf("\taddDeptOrdered collegename deptname enrollment\n");
+   printf("\t*** Add a dept by enrollment (desc) then name (alphabetically) to an existing college\n");
+   printf("\tremoveDept collegename deptname\n");
+   printf("\t*** Remove a dept from a college\n");
+   printf("\tremoveCollege collegename\n");
+   printf("\t*** Remove a college\n");
+   printf("\thelp\n");
+   printf("\t*** Display this list\n");
+   printf("\tquit\n");
+   printf("\t*** Exit the program\n");
+}
+
+int main(int argc, char* argv[])
+{
+	char action[100];
+	char collegeName[100];
+	char deptName[100];
+	int enroll;
+	char rest[300];
+
+	College *university = NULL;
+
+	while (1) {
+		printf("\nEnter a command: ");
+      scanf("%s", action);
+		int action_id = getActionID(action);
+		if (action_id == QUIT) break;
+		switch (action_id) {
+			case ADD_COLLEGE:
+				scanf("%s", collegeName);
+				university = addCollege(university, collegeName);
+				break;
+			case ADD_DEPT:
+				scanf("%s", collegeName);
+				scanf("%s", deptName);
+				scanf("%d", &enroll);
+				addDept(university, collegeName, deptName, enroll);
+				break;
+			case COUNT:
+				printf("\nThere are %d college(s)\n", count(university));
+				break;
+			case ENROLLMENT:
+			   scanf("%s", collegeName);
+			   enroll = enrollment(university, collegeName);
+			   if (enroll == -1)
+			      printf("\nError: college \"%s\" does not exist.\n", collegeName);
+			   else
+				   printf("\nThere are %d student(s) in %s\n", enroll, collegeName);
+				break;
+			case PRINT_COLLEGE:
+				scanf("%s", collegeName);
+				printCollege(university, collegeName);
+				break;
+			case PRINT:
+				print(university);
+				break;
+			case ADD_COLLEGE_ORDERED:
+				scanf("%s", collegeName);
+				university = addCollegeOrdered(university, collegeName);
+				break;
+			case ADD_DEPT_ORDERED:
+				scanf("%s", collegeName);
+				scanf("%s", deptName);
+				scanf("%d", &enroll);
+				addDeptOrdered(university, collegeName, deptName, enroll);
+				break;
+			case REMOVE_DEPT:
+				scanf("%s", collegeName);
+				scanf("%s", deptName);
+				removeDept(university, collegeName, deptName);
+				break;
+			case REMOVE_COLLEGE:
+				scanf("%s", collegeName);
+				university = removeCollege(university, collegeName);
+				break;
+			case HELP:
+				printHelp();
+				break;
+			case INVALID:
+            	printf("\n%s: invalid action. Type help for help.\n", action);
+            	fgets(rest, 300, stdin); // skip the rest of line
+				break;
+		}
+
+	}
+	return 0;
+}
+
+//
+// university.c
+//
+
 College* createCollege(char name[], College* next);
 Dept* createDept(char name[], int enroll, Dept* next);
 int compareCollege(College *pNew, College *pExisting);
