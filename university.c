@@ -1,15 +1,11 @@
-// This file university.c includes both a header and interface file as well as the all the functions made in the orginal university.c file.
-// I will show where every file is by commenting on the line before and after the file would begin, in case you would want run the program itself.
+/* This include statemnt is here to show that I did break the file into 3 parts(interface2.c, university.c, university.h) originally. I have broken up the post 
+so that you can run this directly from this page. */
+// Type "help" for a list of commands to enter into the terminal
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
-/*this include statemnt is here to show that I did break the file into 3 parts(interface2.c, university.c, university.h) originally. If you wanted to run this file on your
-computer you would have to make 3 different files broken up as I have denoted below*/
-
-#include "university.h"
 
 //
 // university.h
