@@ -1,3 +1,19 @@
+// This program takes an input csv file with information in it, and organizes it into different columns
+// Takes command line arguements (./a.out fileName width)
+/* ex. 
+Id   Last name  First name      Weight       Empty         Age
+10       Saban        Nick       147.7                      69
+ 1       Jones         Mac       205.2                      22
+ 5      Ingram        Mark       210.0                      31
+ 3       Henry     Derrick       238.0                      27
+ 6      Harris       Najee       229.4                      22
+ 4       Smith     Devonta       174.0                      22
+ 8      Waddle      Jaylen       183.0                        
+ 2      Ridley      Calvin       190.0                      26
+ 9       Jones       Julio       220.0                      31
+ 7     Metchie        John       194.0                        
+*/
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -9,13 +25,24 @@
 
 using namespace std;
 
-void printHelp();
-void print(string fileName, int width);
-void cols(int width, ifstream& inStr, string str);
-void searchNew(int width, string colName, string colVal, string fileName);
-void min(string colName, string fileName);
-void max(string colName, string fileName);
-void avg(string colName, string fileName);
+void printHelp(); // This function prints a list of possible commands for the user
+void print(string fileName, int width); // This function prints a list of information in different columns
+void cols(int width, ifstream& inStr, string str); // This function prints the names of all the columns in the list (the column names are the first line of text in the file 
+void searchNew(int width, string colName, string colVal, string fileName); // This search function prints all the rows that have the value inputed and the colun name search for 
+// using the "*" character searches all columns for the search value
+// ex. search Gpa 3.5
+// First nm        Last nm         Gender           Cwid       Cred hrs       Qual pts            Gpa
+//     Jane            Doe              F       88888888             80            280            3.5
+//    Penny           Lowe              F       55555555             40            140            3.5
+void min(string colName, string fileName); // This function finds the smallest value in the column given and outputs a statement that tells the user what the smallest value in that column is
+// ex. min Gpa
+// The min for col "Gpa" = 0.75
+void max(string colName, string fileName); // This function finds the largest value in the column given and outputs a statement that tells the user what the largest value in that column is
+// ex. maz Gpa
+// The max for col "Gpa" = 3.75
+void avg(string colName, string fileName); // This function finds the average of all number values in the column given and outputs a statement that tells the user what the average is
+// ex. avg Gpa
+// The avg for col "Gpa" = 2.735
 
 int main(int argc, char* argv[]) {
     string choice;
